@@ -1,0 +1,21 @@
+(dp1
+S'output'
+p2
+S"<type 'exceptions.UnicodeEncodeError'> 'ascii' codec can't encode character u'\\xe9' in position 7: ordinal not in range(128)"
+p3
+sS'layer'
+p4
+S'C:\\web2py\\applications\\ManjoNao\\controllers/backcall.py'
+p5
+sS'code'
+p6
+S'\'\'\'\nCreated on 18/04/2016\n\n@author: Arihane.Mariano\n\'\'\'\n\nimport processor\n\nprocessor.db = db\ndef saveThat():\n    if request.args[0] == \'insert\':\n        #ret = processor.insertNew(request.vars);\n        query = """INSERT INTO MANJA (email, nick_name, text_manja)\n        VALUES (\'{0}\',\'{1}\',\'{2}\')""".format(request.vars.email,request.vars.nick,request.vars.descript)\n        ret = \'\'\n        try:\n            db.executesql(query)\n            values = db.executesql(\'select * from manja\',as_dict=True)\n    \n        except Exception as wE:\n            ret = "error Deu ruim"\n            \n        \n\n        return XML(response.json({\'info\':ret, \'values\':values}))\n\n\ndef delThat():\n    \n    if request.vars.id != None:\n        try:\n            db.executesql(\'delete from manja where id=\'+str(request.vars.id))\n            ret = \'deu\'\n            values = db.executesql(\'select * from manja\',as_dict=True)\n        \n        except Exception as wE:\n            ret =  wE\n            \n        return XML(response.json({\'info\':ret, \'values\':values}))\n        \n        \ndef getAll():\n    values = db.executesql(\'select id, nick_name as nick, text_manja as descript, email from manja\',as_dict=True)\n    return XML(response.json(values))\nresponse._vars=response._caller(saveThat)\n'
+p7
+sS'snapshot'
+p8
+(dp9
+sS'traceback'
+p10
+S'Traceback (most recent call last):\n  File "C:\\web2py\\gluon\\restricted.py", line 227, in restricted\n    exec ccode in environment\n  File "C:\\web2py\\applications\\ManjoNao\\controllers/backcall.py", line 45, in <module>\n  File "C:\\web2py\\gluon\\globals.py", line 412, in <lambda>\n    self._caller = lambda f: f()\n  File "C:\\web2py\\applications\\ManjoNao\\controllers/backcall.py", line 14, in saveThat\n    VALUES (\'{0}\',\'{1}\',\'{2}\')""".format(request.vars.email,request.vars.nick,request.vars.descript)\nUnicodeEncodeError: \'ascii\' codec can\'t encode character u\'\\xe9\' in position 7: ordinal not in range(128)\n'
+p11
+s.
