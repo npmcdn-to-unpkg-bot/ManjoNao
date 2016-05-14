@@ -7,7 +7,7 @@ angular.module('manjoAPP',[], function($interpolateProvider) {
 angular.module('manjoAPP').controller('manjoCtrl',function ($scope, $http){
 	$scope.myPosts = [];
 
-	$scope.flag = false;
+	$scope.updatethat = false;
 
 	var carregarDados = function(){
 		$http.get('backcall/getAll').success(function (data,status){
@@ -20,6 +20,7 @@ angular.module('manjoAPP').controller('manjoCtrl',function ($scope, $http){
 	};
 
 	$scope.submitThat = function (post){
+		console.log(post);
 		$http.post('backcall/saveThat/insert',post).success(function(data){
 			delete $scope.post;
 			carregarDados();
@@ -29,8 +30,13 @@ angular.module('manjoAPP').controller('manjoCtrl',function ($scope, $http){
 	};
 
 	
-	$scope.submitThat = function (post){
-		console.log(post);	
+	$scope.update_that = function (post){
+		$http.post('backcall/saveThat/update',post).success(function(data){
+			delete $scope.post;
+			carregarDados();
+			$scope.manjoForm.$setPristine();
+				
+		});	
 	};
 
 	$scope.apagar_this = function(myPosts){
@@ -49,17 +55,15 @@ angular.module('manjoAPP').controller('manjoCtrl',function ($scope, $http){
 		
 	};
 
-	$scope.edit_that = function(element){
-		$scope.flag=true;
-		var id = $scope.myPosts[element];
-		console.log(id);
-		$("#email").val(id.email);
-		$("#pwd").val(id.nick);
-		$("#manja_comment").val(id.descript);
-		$("#atualizar").show();
+	$scope.edit_that = function(post){
+		$scope.updatethat = true;
+		$scope.current = post;
+		$scope.post = $scope.myPosts[post];
 	};
 	carregarDados();
+	console.log($scope.updatethat);
 });
+
 
 function chances(what){
 	if (what == 'about'){

@@ -57,8 +57,8 @@
             <label for="comment">Manja disso:</label>
             <textarea class="form-control" ng-class="{error: !post.descript && manjoForm.descript.$dirty}" rows="5" id="manja_comment" name='descript' ng-model='post.descript' ng-required='true'></textarea>
             </div>
-            <button ng-click="submitThat(post)" ng-disabled='manjoForm.$invalid' type="button" class="btn btn-default">Mandar</button>
-            <button ng-click="update_that(post)" ng-disabled='' type="button" id='atualizar' style='display:none;' class="btn btn-default">Atualizar</button>
+            <button ng-click="submitThat(post)" ng-disabled='manjoForm.$invalid' type="button" class="btn btn-default" >Mandar</button>
+            <button ng-click="update_that(post)" ng-disabled="!updatethat" type="button" id='atualizar' class="btn btn-default">Atualizar</button>
             <div id="tab_manja" style='margin-top:20px;'>
               <table ng-show="myPosts.length >0" style='margin-bottom: 50px;'>
                 <tr>

@@ -19,7 +19,17 @@ def saveThat():
     
         except Exception as wE:
             ret = "error Deu ruim"
-            
+    if request.args[0] == 'update':
+        #ret = processor.insertNew(request.vars);
+        query = """UPDATE MANJA SET email='{0}', nick_name='{1}', text_manja='{2}'
+        WHERE id={3} """.format(request.vars.email,request.vars.nick,request.vars.descript,request.vars.id)
+        ret = ''
+        try:
+            db.executesql(query)
+            values = db.executesql('select * from manja',as_dict=True)
+    
+        except Exception as wE:
+            ret = "error Deu ruim"        
         
 
         return XML(response.json({'info':ret, 'values':values}))
